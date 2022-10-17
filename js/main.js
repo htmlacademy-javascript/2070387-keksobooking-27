@@ -129,16 +129,16 @@ function getRand () {
   return Math.random() - 0.5;
 }
 
-function getNewData () {
-  const getRandLat = getRandomPositiveFloat(LATITUDE.min, LATITUDE.max, digits);
-  const getRandLng = getRandomPositiveFloat(LONGITUDE.min, LONGITUDE.max, digits);
+function getNewData (index) {
+  const randLat = getRandomPositiveFloat(LATITUDE.min, LATITUDE.max, digits);
+  const randLng = getRandomPositiveFloat(LONGITUDE.min, LONGITUDE.max, digits);
   return {
     autor: {
-      avatar: getRandomArrayElement(AUTOR_LIST),
+      avatar: AUTOR_LIST[index],
     },
     offer: {
       title: getRandomArrayElement(TITLE),
-      addres: `${getRandLat}, ${getRandLng}`,
+      addres: `${randLat}, ${randLng}`,
       price: getRandomPositiveInteger (PRICE.min, PRICE.max),
       type: getRandomArrayElement (TYPE),
       rooms: getRandomPositiveInteger (ROOMS.min, ROOMS.max),
@@ -150,10 +150,19 @@ function getNewData () {
       photos: PHOTOS.slice().sort(getRand).slice(getRandomPositiveInteger(0, PHOTOS.length)),
     },
     location: {
-      lat: getRandLat,
-      lng: getRandLng,
+      lat: randLat,
+      lng: randLng,
     }
   };
 }
 
-const dataList = Array.from({length: COUNT}, getNewData);
+function generateData () {
+  const dataList = [];
+  for (let i = 0; i < COUNT; i++) {
+    dataList.push(getNewData(i));
+  }
+
+  return dataList;
+}
+
+generateData();
