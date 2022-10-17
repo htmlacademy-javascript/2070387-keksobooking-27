@@ -1,3 +1,5 @@
+const digits = 5;
+
 function getRandomPositiveInteger (a, b) {
   if (a < 0 || b < 0) {
     return NaN;
@@ -8,14 +10,14 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
-function getRandomPositiveFloat (a, b, digits = 5) {
-  if (a < 0 || b < 0 || digits < 0) {
+function getRandomPositiveFloat (a, b, number) {
+  if (a < 0 || b < 0 || number < 0) {
     return NaN;
   }
   const lower = Math.min(a, b);
   const upper = Math.max(a, b);
   const result = Math.random() * (upper - lower) + lower;
-  return +result.toFixed(digits);
+  return +result.toFixed(number);
 }
 
 const COUNT = 10;
@@ -127,8 +129,6 @@ function getRand () {
   return Math.random() - 0.5;
 }
 
-const digits = 5;
-
 function getNewData () {
   const getRandLat = getRandomPositiveFloat(LATITUDE.min, LATITUDE.max, digits);
   const getRandLng = getRandomPositiveFloat(LONGITUDE.min, LONGITUDE.max, digits);
@@ -157,5 +157,3 @@ function getNewData () {
 }
 
 const dataList = Array.from({length: COUNT}, getNewData);
-
-console.log(dataList);
