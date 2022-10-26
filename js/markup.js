@@ -41,7 +41,7 @@ data.forEach((card) => {
 
   cardElement.querySelector('.popup__type').innerHTML = '';
   card.offer.type.forEach((offerType) => {
-    let type;
+    let type = ' ';
     switch (offerType) {
       case 'flat':
         type = 'Квартира';
@@ -61,8 +61,6 @@ data.forEach((card) => {
     }
     cardElement.querySelector('.popup__type').textContent = type;
   });
-
-  // cardElement.querySelector('.popup__type').textContent = getType(data);
 
   cardElement.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
