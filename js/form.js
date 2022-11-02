@@ -105,10 +105,12 @@ const timeOut = adForm.querySelector('#timeout');
 // const timeArr = ['12:00', '13:00', '14:00'];
 
 function setTimeOut () {
-  const selectedtimeIn = timeIn.options[timeIn.selectedIndex];
-  console.log(selectedtimeIn.value);
+  const selectedtimeIn = timeIn.options[timeIn.selectedIndex].value;
+  console.log(selectedtimeIn);
   // найти время выезда с таким же value
+  const newTimeOut = timeOut.querySelectorAll(option[value='selectedtimeIn']);
   //  дать ему атрибут selected
+  newTimeOut.setAttribute('selected');
 }
 
 function setTimeIn () {
