@@ -102,22 +102,23 @@ function onTypeOfHousingChange () {
 
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
-// const timeArr = ['12:00', '13:00', '14:00'];
+const timeInOptions = timeIn.querySelectorAll('option');
+const timeOutOptions = timeOut.querySelectorAll('option');
 
 function setTimeOut () {
-  const selectedtimeIn = timeIn.options[timeIn.selectedIndex].value;
-  console.log(selectedtimeIn);
-  // найти время выезда с таким же value
-  const newTimeOut = timeOut.querySelectorAll(option[value='selectedtimeIn']);
-  //  дать ему атрибут selected
-  newTimeOut.setAttribute('selected');
+  for (let i = 0; i < timeOutOptions.length; i++) {
+    if (timeOutOptions[i].value === timeInOptions[i].value) {
+      timeOutOptions[i].selected = true;
+    }
+  }
 }
 
 function setTimeIn () {
-  const selectedtimeOut = timeOut.options[timeOut.selectedIndex];
-  console.log(selectedtimeOut.value);
-  // найти время заезда с таким же value
-  //  дать ему атрибут selected
+  for (let i = 0; i < timeInOptions.length; i++) {
+    if (timeInOptions[i].value === timeOutOptions[i].value) {
+      timeInOptions[i].selected = true;
+    }
+  }
 }
 
 timeIn.addEventListener('change', setTimeOut);
