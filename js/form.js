@@ -54,6 +54,68 @@ function onRoomsGuestsChange () {
   pristine.validate(guests);
 }
 
+// УСЛОВИЕ ТИПА ЖИЛЬЯ И ЦЕНЫ ЗА НОЧЬ
+// «Бунгало» — минимальная цена за ночь 0;
+// «Квартира» — минимальная цена за ночь 1 000;
+// «Отель» — минимальная цена за ночь 3 000;
+// «Дом» — минимальная цена 5 000;
+// «Дворец» — минимальная цена 10 000.
+
+const typeOfHousing = adForm.querySelector('#type');
+const price = adForm.querySelector('#price');
+const typeCosts = {
+  bungalow: '0',
+  flat: '1000',
+  hotel: '3000',
+  house: '5000',
+  palace: '10000'
+};
+
+function setMinPrice () {
+  price.setAttribute('placeholder', typeCosts[typeOfHousing.value]);
+  price.setAttribute('min', typeCosts[typeOfHousing.value]);
+}
+
+typeOfHousing.addEventListener('change', setMinPrice);
+
+function validatePrice () {
+  return Number(price.value) > Number(typeCosts[typeOfHousing.value]);
+}
+
+function getPriceErrorMessage () {
+  return `Цена выбранного типа жилья не менее ${typeCosts[typeOfHousing.value]} рублей за ночь`;
+}
+
+pristine.addValidator(price, validatePrice, getPriceErrorMessage);
+
+typeOfHousing.addEventListener('change', onTypeOfHousingChange);
+
+function onTypeOfHousingChange () {
+  pristine.validate(price);
+}
+// конец условия по типу жилья и цены
+
+// ВРЕМЯ ЗАЕЗДА И ВЫЕЗДА
+// въезд после 12 = выезду до 12
+// въезд после 13 = выезду до 13
+// въезд после 14 = выезду до 14
+
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
+
+function onSetTimeOut () {
+  timeOut.value = timeIn.value;
+}
+
+function onSetTimeIn () {
+  timeIn.value = timeOut.value;
+}
+
+timeIn.addEventListener('change', onSetTimeOut);
+timeOut.addEventListener('change', onSetTimeIn);
+
+// конец условия по времени въезда и выезда
+
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
