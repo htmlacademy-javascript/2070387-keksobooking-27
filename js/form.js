@@ -103,16 +103,16 @@ function onTypeOfHousingChange () {
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 
-function setTimeOut () {
+function onSetTimeOut () {
   timeOut.value = timeIn.value;
 }
 
-function setTimeIn () {
+function onSetTimeIn () {
   timeIn.value = timeOut.value;
 }
 
-timeIn.addEventListener('change', setTimeOut);
-timeOut.addEventListener('change', setTimeIn);
+timeIn.addEventListener('change', onSetTimeOut);
+timeOut.addEventListener('change', onSetTimeIn);
 
 // конец условия по времени въезда и выезда
 
