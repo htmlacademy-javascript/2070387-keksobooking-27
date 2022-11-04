@@ -108,7 +108,7 @@ const timeOutOptions = timeOut.querySelectorAll('option');
 function setTimeOut () {
   for (let i = 0; i < timeOutOptions.length; i++) {
     if (timeOutOptions[i].value === timeInOptions[i].value) {
-      timeOutOptions[i].selected = true;
+      timeOutOptions[i].setAttribute('selected', true);
     }
   }
 }
@@ -116,7 +116,7 @@ function setTimeOut () {
 function setTimeIn () {
   for (let i = 0; i < timeInOptions.length; i++) {
     if (timeInOptions[i].value === timeOutOptions[i].value) {
-      timeInOptions[i].selected = true;
+      timeInOptions[i].setAttribute('selected', true);
     }
   }
 }
