@@ -79,7 +79,7 @@ function setMinPrice () {
 typeOfHousing.addEventListener('change', setMinPrice);
 
 function validatePrice () {
-  return price.value <= typeCosts[typeOfHousing.value];
+  return Number(price.value) > Number(typeCosts[typeOfHousing.value]);
 }
 
 function getPriceErrorMessage () {
@@ -102,23 +102,13 @@ function onTypeOfHousingChange () {
 
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
-const timeInOptions = timeIn.querySelectorAll('option');
-const timeOutOptions = timeOut.querySelectorAll('option');
 
 function setTimeOut () {
-  for (let i = 0; i < timeOutOptions.length; i++) {
-    if (timeOutOptions[i].value === timeInOptions[i].value) {
-      timeOutOptions[i].setAttribute('selected', true);
-    }
-  }
+  timeOut.value = timeIn.value;
 }
 
 function setTimeIn () {
-  for (let i = 0; i < timeInOptions.length; i++) {
-    if (timeInOptions[i].value === timeOutOptions[i].value) {
-      timeInOptions[i].setAttribute('selected', true);
-    }
-  }
+  timeIn.value = timeOut.value;
 }
 
 timeIn.addEventListener('change', setTimeOut);
