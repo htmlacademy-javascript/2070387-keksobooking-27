@@ -15,5 +15,4 @@ const turnOnMapFilters = function () {
   });
 };
 
-export {turnOffMapFilters};
-export {turnOnMapFilters};
+export {turnOffMapFilters, turnOnMapFilters};
