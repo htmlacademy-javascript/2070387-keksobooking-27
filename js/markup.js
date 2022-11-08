@@ -1,7 +1,3 @@
-import {generateData} from './data.js';
-const data = generateData();
-
-const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content;
 
 const getType = function (type) {
@@ -53,7 +49,5 @@ const getNewCardElement = function (card) {
   return cardElement;
 };
 
-const firstCard = getNewCardElement(data[0]);
-
-map.appendChild(firstCard);
+export {getNewCardElement};
 

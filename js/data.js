@@ -34,8 +34,8 @@ const TITLE = [
 ];
 
 const PRICE = {
-  min: 100,
-  max: 1000,
+  min: 0,
+  max: 100000,
 };
 
 const TYPE = [
