@@ -79,7 +79,7 @@ function setMinPrice () {
 typeOfHousing.addEventListener('change', setMinPrice);
 
 function validatePrice () {
-  return Number(price.value) > Number(typeCosts[typeOfHousing.value]);
+  return Number(price.value) >= Number(typeCosts[typeOfHousing.value]);
 }
 
 function getPriceErrorMessage () {

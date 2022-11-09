@@ -15,4 +15,6 @@ const turnOnForm = function () {
   });
 };
 
-export {turnOffForm, turnOnForm};
+turnOffForm();
+
+export {turnOnForm};
