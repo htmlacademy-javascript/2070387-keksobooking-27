@@ -1,4 +1,4 @@
-import {generateData} from './data.js';
+// import {generateData} from './data.js';
 import {turnOffForm, turnOnForm} from './form-switcher.js';
 import {turnOffMapFilters, turnOnMapFilters} from './filter-switcher.js';
 import {getNewCardElement} from './markup.js';
@@ -45,7 +45,7 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС - РЕШЕНИЕ НЕВЕРНОЕ
+// ПЕРЕДАЕМ КООРДИНАТЫ МАРКЕРА В АДРЕС
 mainPinMarker.on('moveend', (evt) => {
   const latLang = evt.target.getLatLng().toString();
   const arr = latLang.split('');
@@ -68,7 +68,8 @@ resetButton.addEventListener('click', () => {
 });
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
-const dataList = generateData();
+// const dataList = generateData();
+// console.log(dataList);
 
 const pinIcon = L.icon({
   iconUrl: '..//img/pin.svg',
@@ -95,6 +96,9 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-dataList.forEach((popupCard) => {
-  createMarker(popupCard);
-});
+export {createMarker};
+
+// dataList.forEach((popupCard) => {
+//   createMarker(popupCard);
+// });
+
