@@ -67,7 +67,6 @@ resetButton.addEventListener('click', () => {
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
 const dataList = generateData();
-console.log(dataList);
 
 const pinIcon = L.icon({
   iconUrl: '..//img/pin.svg',

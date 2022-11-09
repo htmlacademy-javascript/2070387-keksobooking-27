@@ -8,12 +8,7 @@ import {createMarker} from './map.js';
 fetch('https://27.javascript.pages.academy/keksobooking/data')
   .then((response) => response.json())
   .then((ads) => {
-    console.log(ads);
+    ads.forEach((popupCard) => {
+      createMarker(popupCard);
+    });
   });
-
-fetch('https://27.javascript.pages.academy/keksobooking/data')
-  .then((response) => response.json())
-  .then((ads) => ads.forEach((card) => {
-    createMarker(card);
-  })
-  );
