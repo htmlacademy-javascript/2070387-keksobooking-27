@@ -4,7 +4,7 @@ import './form-switcher.js';
 import './map.js';
 import './slider.js';
 import {createMarker} from './map.js';
-import {showAlert} from './form.js';
+import {showAlert} from './message.js';
 
 // Количество выводимых с сервера объявлений
 const ADS_COUNT = 10;

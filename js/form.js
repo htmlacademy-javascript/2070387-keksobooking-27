@@ -1,5 +1,6 @@
 import {sliderReset} from './slider.js';
 import {handlerResetMainMarker} from './map.js';
+import {showSuccesMessage, showErrorMessage} from './message.js';
 const adForm = document.querySelector('.ad-form');
 const rooms = adForm.querySelector('#room_number');
 const guests = adForm.querySelector('#capacity');
@@ -115,61 +116,13 @@ timeOut.addEventListener('change', onSetTimeIn);
 
 // ОТПРАВКА ФОРМЫ
 // При удачной отправке формы ее нужно отчистить и вывести сообщение пользователю
-const showTime = 5000;
-const showSuccessPost = function (message) {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.width = '1200px';
-  alertContainer.style.margin = '0 auto';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '650px';
-  alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.color = 'black';
-  alertContainer.style.backgroundColor = 'white';
-
-  alertContainer.textContent = message;
-
-  document.body.append(alertContainer);
-
-  setTimeout(() => {
-    alertContainer.remove();
-  }, showTime);
-};
+// При неудачной отправке формы нужно вывести сообщение пользователю
 
 const resetForm = function () {
   adForm.reset();
   sliderReset();
   handlerResetMainMarker();
-  showSuccessPost('Объявление успешно размещено');
-};
-
-// При неудачной отправке формы нужно вывести сообщение пользователю
-const showAlert = function (message) {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.width = '1200px';
-  alertContainer.style.margin = '0 auto';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '650px';
-  alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.color = 'white';
-  alertContainer.style.backgroundColor = 'red';
-
-  alertContainer.textContent = message;
-
-  document.body.append(alertContainer);
-
-  setTimeout(() => {
-    alertContainer.remove();
-  }, showTime);
+  showSuccesMessage();
 };
 
 adForm.addEventListener('submit', (evt) => {
@@ -178,7 +131,7 @@ adForm.addEventListener('submit', (evt) => {
   if (isValid) {
     const formData = new FormData(evt.target);
     fetch(
-      'https://27.javascript.pages.academy/keksobooking',
+      'https://27.javascript.pages.academy/keksobooking ',
       {
         method: 'POST',
         body: formData,
@@ -188,13 +141,11 @@ adForm.addEventListener('submit', (evt) => {
         if (response.ok) {
           resetForm();
         } else {
-          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+          showErrorMessage();
         }
       })
       .catch(() => {
-        showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+        showErrorMessage();
       });
   }
 });
-
-export {showAlert};
