@@ -38,3 +38,9 @@ typeOfHousing.addEventListener('change', () => {
     start: startPrice,
   });
 });
+
+const sliderReset = function () {
+  sliderPrice.noUiSlider.set(typeCosts[typeOfHousing.value]);
+};
+
+export {sliderReset};

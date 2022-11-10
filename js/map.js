@@ -1,4 +1,3 @@
-import {generateData} from './data.js';
 import {turnOnForm} from './form-switcher.js';
 import {turnOnMapFilters} from './filter-switcher.js';
 import {getNewCardElement} from './markup.js';
@@ -53,7 +52,7 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
-resetButton.addEventListener('click', () => {
+const handlerResetMainMarker = function () {
   mainPinMarker.setLatLng({
     lat: 35.67325,
     lng: 139.75908,
@@ -63,11 +62,23 @@ resetButton.addEventListener('click', () => {
     lat: 35.67325,
     lng: 139.75908,
   }, 11);
-});
+};
+
+resetButton.addEventListener('click', handlerResetMainMarker);
+
+// resetButton.addEventListener('click', () => {
+//   mainPinMarker.setLatLng({
+//     lat: 35.67325,
+//     lng: 139.75908,
+//   });
+
+//   map.setView({
+//     lat: 35.67325,
+//     lng: 139.75908,
+//   }, 11);
+// });
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
-const dataList = generateData();
-
 const pinIcon = L.icon({
   iconUrl: '..//img/pin.svg',
   iconSize: [40, 40],
@@ -93,9 +104,4 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-export {createMarker};
-
-// dataList.forEach((popupCard) => {
-//   createMarker(popupCard);
-// });
-
+export {createMarker, handlerResetMainMarker};

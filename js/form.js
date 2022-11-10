@@ -1,4 +1,12 @@
+import {sliderReset} from './slider.js';
+import {handlerResetMainMarker} from './map.js';
 const adForm = document.querySelector('.ad-form');
+const rooms = adForm.querySelector('#room_number');
+const guests = adForm.querySelector('#capacity');
+const typeOfHousing = adForm.querySelector('#type');
+const price = adForm.querySelector('#price');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
 
 const pristine = new Pristine(
   adForm, {
@@ -14,9 +22,6 @@ const pristine = new Pristine(
 // 2 комнаты — «для 2 гостей» или «для 1 гостя»;
 // 3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»;
 // 100 комнат — «не для гостей».
-
-const rooms = adForm.querySelector('#room_number');
-const guests = adForm.querySelector('#capacity');
 const roomsCapacity = {
   1 : ['1'],
   2 : ['1', '2'],
@@ -60,9 +65,6 @@ function onRoomsGuestsChange () {
 // «Отель» — минимальная цена за ночь 3 000;
 // «Дом» — минимальная цена 5 000;
 // «Дворец» — минимальная цена 10 000.
-
-const typeOfHousing = adForm.querySelector('#type');
-const price = adForm.querySelector('#price');
 const typeCosts = {
   bungalow: '0',
   flat: '1000',
@@ -99,10 +101,6 @@ function onTypeOfHousingChange () {
 // въезд после 12 = выезду до 12
 // въезд после 13 = выезду до 13
 // въезд после 14 = выезду до 14
-
-const timeIn = adForm.querySelector('#timein');
-const timeOut = adForm.querySelector('#timeout');
-
 function onSetTimeOut () {
   timeOut.value = timeIn.value;
 }
@@ -113,12 +111,69 @@ function onSetTimeIn () {
 
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
-
 // конец условия по времени въезда и выезда
+
+// ОТПРАВКА ФОРМЫ
+// При удачной отправке формы ее нужно отчистить и вывести сообщение пользователю
+const showTime = 5000;
+const showSuccessPost = function (message) {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.width = '1200px';
+  alertContainer.style.margin = '0 auto';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '650px';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.color = 'black';
+  alertContainer.style.backgroundColor = 'white';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, showTime);
+};
+
+const resetForm = function () {
+  adForm.reset();
+  sliderReset();
+  handlerResetMainMarker();
+  showSuccessPost('Объявление успешно размещено');
+};
+
+// При неудачной отправке формы нужно вывести сообщение пользователю
+const showAlert = function (message) {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.width = '1200px';
+  alertContainer.style.margin = '0 auto';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '650px';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.color = 'white';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, showTime);
+};
 
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-
   const isValid = pristine.validate();
   if (isValid) {
     const formData = new FormData(evt.target);
@@ -128,6 +183,18 @@ adForm.addEventListener('submit', (evt) => {
         method: 'POST',
         body: formData,
       },
-    );
+    )
+      .then((response) => {
+        if (response.ok) {
+          resetForm();
+        } else {
+          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+        }
+      })
+      .catch(() => {
+        showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+      });
   }
 });
+
+export {showAlert};
