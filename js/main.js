@@ -17,6 +17,6 @@ fetch('https://27.javascript.pages.academy/keksobooking/data')
       createMarker(popupCard);
     });
   })
-  .catch(
+  .catch(() => {
     showAlert('Не удалось загрузить объявления. Попробуйте перезагрузить страницу')
-  );
+  });
