@@ -20,7 +20,7 @@ noUiSlider.create(sliderPrice, {
   connect: 'lower',
   format: {
     to: function (value) {
-      return value;
+      return value.toFixed(0);
     },
     from: function (value) {
       return parseFloat(value);
@@ -38,3 +38,9 @@ typeOfHousing.addEventListener('change', () => {
     start: startPrice,
   });
 });
+
+const sliderReset = function () {
+  sliderPrice.noUiSlider.set(typeCosts[typeOfHousing.value]);
+};
+
+export {sliderReset};
