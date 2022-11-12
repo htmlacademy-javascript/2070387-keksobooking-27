@@ -1,6 +1,9 @@
 import {sliderReset} from './slider.js';
 import {handlerResetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
+import {sendData} from './api.js';
+import {resetAvatar} from './avatar.js';
+import {resetFoto} from './foto.js';
 const adForm = document.querySelector('.ad-form');
 const rooms = adForm.querySelector('#room_number');
 const guests = adForm.querySelector('#capacity');
@@ -8,6 +11,8 @@ const typeOfHousing = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
+const submitButton = adForm.querySelector('.ad-form__submit');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(
   adForm, {
@@ -18,11 +23,6 @@ const pristine = new Pristine(
   true
 );
 
-// УСЛОВИЯ КОЛИЧЕТСВА КОМНАТ И ГОСТЕЙ
-// 1 комната — «для 1 гостя»;
-// 2 комнаты — «для 2 гостей» или «для 1 гостя»;
-// 3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»;
-// 100 комнат — «не для гостей».
 const roomsCapacity = {
   1 : ['1'],
   2 : ['1', '2'],
@@ -60,12 +60,6 @@ function onRoomsGuestsChange () {
   pristine.validate(guests);
 }
 
-// УСЛОВИЕ ТИПА ЖИЛЬЯ И ЦЕНЫ ЗА НОЧЬ
-// «Бунгало» — минимальная цена за ночь 0;
-// «Квартира» — минимальная цена за ночь 1 000;
-// «Отель» — минимальная цена за ночь 3 000;
-// «Дом» — минимальная цена 5 000;
-// «Дворец» — минимальная цена 10 000.
 const typeCosts = {
   bungalow: '0',
   flat: '1000',
@@ -96,12 +90,7 @@ typeOfHousing.addEventListener('change', onTypeOfHousingChange);
 function onTypeOfHousingChange () {
   pristine.validate(price);
 }
-// конец условия по типу жилья и цены
 
-// ВРЕМЯ ЗАЕЗДА И ВЫЕЗДА
-// въезд после 12 = выезду до 12
-// въезд после 13 = выезду до 13
-// въезд после 14 = выезду до 14
 function onSetTimeOut () {
   timeOut.value = timeIn.value;
 }
@@ -112,40 +101,54 @@ function onSetTimeIn () {
 
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
-// конец условия по времени въезда и выезда
 
-// ОТПРАВКА ФОРМЫ
-// При удачной отправке формы ее нужно отчистить и вывести сообщение пользователю
-// При неудачной отправке формы нужно вывести сообщение пользователю
+const onResetButton = function () {
+  resetAvatar();
+  resetFoto();
+  sliderReset();
+  handlerResetMainMarker();
+};
+
+resetButton.addEventListener('click', onResetButton);
 
 const resetForm = function () {
   adForm.reset();
   sliderReset();
+  resetAvatar();
+  resetFoto();
   handlerResetMainMarker();
+};
+
+const formUpdateOnSuccess = function () {
+  resetForm();
   showSuccesMessage();
+};
+
+const blockSubmitButton = function () {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = function () {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
 };
 
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    const formData = new FormData(evt.target);
-    fetch(
-      'https://27.javascript.pages.academy/keksobooking ',
-      {
-        method: 'POST',
-        body: formData,
+    blockSubmitButton();
+    sendData(
+      () => {
+        formUpdateOnSuccess();
+        unblockSubmitButton();
       },
-    )
-      .then((response) => {
-        if (response.ok) {
-          resetForm();
-        } else {
-          showErrorMessage();
-        }
-      })
-      .catch(() => {
+      () => {
         showErrorMessage();
-      });
+        unblockSubmitButton();
+      },
+      new FormData(evt.target),
+    );
   }
 });

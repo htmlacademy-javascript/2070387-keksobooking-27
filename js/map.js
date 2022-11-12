@@ -64,20 +64,6 @@ const handlerResetMainMarker = function () {
   }, 11);
 };
 
-resetButton.addEventListener('click', handlerResetMainMarker);
-
-// resetButton.addEventListener('click', () => {
-//   mainPinMarker.setLatLng({
-//     lat: 35.67325,
-//     lng: 139.75908,
-//   });
-
-//   map.setView({
-//     lat: 35.67325,
-//     lng: 139.75908,
-//   }, 11);
-// });
-
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
 const pinIcon = L.icon({
   iconUrl: '..//img/pin.svg',
@@ -104,4 +90,10 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-export {createMarker, handlerResetMainMarker};
+const createAllMarkers = function (arr) {
+  arr.forEach((popupCard) => {
+    createMarker(popupCard);
+  });
+};
+
+export {createAllMarkers, handlerResetMainMarker};
