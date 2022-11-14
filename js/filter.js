@@ -46,7 +46,7 @@ const filterFeatures = (offer, features) => {
   return features.every((feature) => offer.offer.features.includes(feature));
 };
 
-const getFilteredAds = function () {
+const getFilteredAds = () => {
   const selectedType = housingType.value;
   const selectedPrice = housingPrice.value;
   const selectedRooms = housingRooms.value;
@@ -77,7 +77,7 @@ const getFilteredAds = function () {
   return filteredOffers;
 };
 
-const setOnFilterChange = function (cb) {
+const setOnFilterChange = (cb) => {
   filtersForm.addEventListener('change', () => cb(getFilteredAds));
 };
 
