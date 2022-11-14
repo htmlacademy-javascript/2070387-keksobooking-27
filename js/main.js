@@ -3,20 +3,13 @@ import './filter-switcher.js';
 import './form-switcher.js';
 import './map.js';
 import './slider.js';
-import {createMarker} from './map.js';
+import {createAllMarkers} from './map.js';
 import {showAlert} from './message.js';
+import {getData} from './api.js';
 
-// Количество выводимых с сервера объявлений
-const ADS_COUNT = 10;
+const ADS_NUM = 10;
 
-fetch('https://27.javascript.pages.academy/keksobooking/data')
-  .then((response) => response.json())
-  .then((ads) => {
-    const adsCount = ads.slice(0, ADS_COUNT);
-    adsCount.forEach((popupCard) => {
-      createMarker(popupCard);
-    });
-  })
-  .catch(() => {
-    showAlert('Не удалось загрузить объявления. Попробуйте перезагрузить страницу');
-  });
+getData(
+  (ads) => createAllMarkers(ads.slice(0, ADS_NUM)),
+  () => showAlert('Не удалось загрузить объявления. Попробуйте перезагрузить страницу')
+);

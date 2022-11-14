@@ -104,4 +104,10 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-export {createMarker, handlerResetMainMarker};
+const createAllMarkers = function (arr) {
+  arr.forEach((popupCard) => {
+    createMarker(popupCard);
+  });
+};
+
+export {createAllMarkers, handlerResetMainMarker};
