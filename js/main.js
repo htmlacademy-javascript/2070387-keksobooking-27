@@ -8,10 +8,11 @@ import {showAlert} from './message.js';
 import {getData} from './api.js';
 import './avatar.js';
 import './foto.js';
+import './filter.js';
 
-const ADS_NUM = 10;
+const ADS_COUNT = 10;
 
 getData(
-  (ads) => createAllMarkers(ads.slice(0, ADS_NUM)),
+  (ads) => createAllMarkers(ads.slice(0, ADS_COUNT)),
   () => showAlert('Не удалось загрузить объявления. Попробуйте перезагрузить страницу')
 );
