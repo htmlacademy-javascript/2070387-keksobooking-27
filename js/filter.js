@@ -1,4 +1,5 @@
-const OFFER_COUNT = 10;
+import {removeAllMarkers} from './map.js';
+const OFFER_COUNT = 30;
 
 const Price = {
   middle: 10000,
@@ -12,10 +13,9 @@ const housingRooms = filtersForm.querySelector('#housing-rooms');
 const housingGuests = filtersForm.querySelector('#housing-guests');
 const housingFeatures = filtersForm.querySelectorAll('.map__checkbox');
 
-const offers = [];
-
 const filterType = (offer, type) =>
   type === 'any' || offer.offer.type === type;
+
 
 const filterPrice = (offer, price) => {
   switch (price) {
@@ -46,7 +46,8 @@ const filterFeatures = (offer, features) => {
   return features.every((feature) => offer.offer.features.includes(feature));
 };
 
-const getFilteredAds = () => {
+const getFilteredOffersByType = function (offers) {
+  const filteredOffers = [];
   const selectedType = housingType.value;
   const selectedPrice = housingPrice.value;
   const selectedRooms = housingRooms.value;
@@ -56,9 +57,9 @@ const getFilteredAds = () => {
     if (checkbox.checked) {
       selectedFeatures.push(checkbox.value);
     }
+    return selectedFeatures;
   });
 
-  const filteredOffers = [];
   for (const offer of offers) {
     if (filteredOffers.length > OFFER_COUNT) {
       break;
@@ -77,8 +78,11 @@ const getFilteredAds = () => {
   return filteredOffers;
 };
 
-const setOnFilterChange = (cb) => {
-  filtersForm.addEventListener('change', () => cb(getFilteredAds));
+const setOnFiltersChange = function (cb, arr) {
+  filtersForm.addEventListener('change', () => {
+    removeAllMarkers();
+    cb(getFilteredOffersByType(arr));
+  });
 };
 
-export {setOnFilterChange};
+export {setOnFiltersChange};

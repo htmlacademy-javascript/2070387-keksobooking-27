@@ -8,17 +8,18 @@ import {showAlert} from './message.js';
 import {getData} from './api.js';
 import './avatar.js';
 import './foto.js';
-import {setOnFilterChange} from './filter.js';
+import {setOnFiltersChange} from './filter.js';
 import {debounce} from './debounce.js';
 
-const ADS_COUNT = 10;
+const OFFER_COUNT = 10;
 const RERENDER_DELAY = 500;
 
 getData(
-  (ads) => setOnFilterChange(
+  (ads) => {
+    createAllMarkers(ads.slice(0, OFFER_COUNT));
     debounce(
-      createAllMarkers(ads.slice(0, ADS_COUNT)), RERENDER_DELAY
-    )
-  ),
+      setOnFiltersChange(createAllMarkers, ads), RERENDER_DELAY,
+    );
+  },
   () => showAlert('Не удалось загрузить объявления. Попробуйте перезагрузить страницу')
 );

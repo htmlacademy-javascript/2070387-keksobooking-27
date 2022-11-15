@@ -2,7 +2,6 @@ import {turnOnForm} from './form-switcher.js';
 import {turnOnMapFilters} from './filter-switcher.js';
 import {getNewCardElement} from './markup.js';
 
-const resetButton = document.querySelector('.ad-form__reset');
 const adress = document.querySelector('#address');
 
 //  СОЗДАНИЕ КАРТЫ И АКТИВАЦИЯ ФОРМЫ И ФИЛЬТРОВ
@@ -96,4 +95,9 @@ const createAllMarkers = function (arr) {
   });
 };
 
-export {createAllMarkers, handlerResetMainMarker};
+// УДАЛЕНИЕ МАРКЕРОВ
+const removeAllMarkers = function () {
+  markerGroup.clearLayers();
+};
+
+export {createAllMarkers, removeAllMarkers, handlerResetMainMarker};
