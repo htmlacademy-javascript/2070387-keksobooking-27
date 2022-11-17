@@ -51,7 +51,7 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
-const handlerResetMainMarker = function () {
+const handlerResetMainMarker = () => {
   mainPinMarker.setLatLng({
     lat: 35.67325,
     lng: 139.75908,
@@ -72,7 +72,7 @@ const pinIcon = L.icon({
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = function (popupCard) {
+const createMarker = (popupCard) => {
   const {location} = popupCard;
   const marker = L.marker(
     {
@@ -89,14 +89,14 @@ const createMarker = function (popupCard) {
     .bindPopup(getNewCardElement(popupCard));
 };
 
-const createAllMarkers = function (arr) {
+const createAllMarkers = (arr) => {
   arr.forEach((popupCard) => {
     createMarker(popupCard);
   });
 };
 
 // УДАЛЕНИЕ МАРКЕРОВ
-const removeAllMarkers = function () {
+const removeAllMarkers = () => {
   markerGroup.clearLayers();
 };
 
