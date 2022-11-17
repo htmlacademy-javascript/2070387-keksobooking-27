@@ -1,5 +1,8 @@
 import {removeAllMarkers} from './map.js';
-const OFFER_COUNT = 30;
+import {debounce} from './debounce.js';
+
+const OFFER_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 const Price = {
   middle: 10000,
@@ -79,10 +82,12 @@ const getFilteredOffersByType = function (offers) {
 };
 
 const setOnFiltersChange = function (cb, arr) {
-  filtersForm.addEventListener('change', () => {
+  filtersForm.addEventListener('change', debounce(() => {
     removeAllMarkers();
     cb(getFilteredOffersByType(arr));
-  });
+  }
+  , RERENDER_DELAY)
+  );
 };
 
 export {setOnFiltersChange};

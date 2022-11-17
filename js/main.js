@@ -9,17 +9,14 @@ import {getData} from './api.js';
 import './avatar.js';
 import './foto.js';
 import {setOnFiltersChange} from './filter.js';
-import {debounce} from './debounce.js';
+
 
 const OFFER_COUNT = 10;
-const RERENDER_DELAY = 500;
 
 getData(
   (ads) => {
     createAllMarkers(ads.slice(0, OFFER_COUNT));
-    debounce(
-      setOnFiltersChange(createAllMarkers, ads), RERENDER_DELAY,
-    );
+    setOnFiltersChange(createAllMarkers, ads);
   },
   () => showAlert('Не удалось загрузить объявления. Попробуйте перезагрузить страницу')
 );
