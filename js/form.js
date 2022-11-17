@@ -2,6 +2,7 @@ import {sliderReset} from './slider.js';
 import {handlerResetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
 import {sendData} from './api.js';
+
 import {resetAvatar} from './avatar.js';
 import {resetFoto} from './foto.js';
 const adForm = document.querySelector('.ad-form');
@@ -110,6 +111,7 @@ const onResetButton = function () {
 };
 
 resetButton.addEventListener('click', onResetButton);
+
 
 const resetForm = function () {
   adForm.reset();
