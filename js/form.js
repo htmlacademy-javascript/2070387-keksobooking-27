@@ -2,6 +2,9 @@ import {sliderReset} from './slider.js';
 import {handlerResetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
 import {sendData} from './api.js';
+
+import {resetAvatar} from './avatar.js';
+import {resetFoto} from './foto.js';
 const adForm = document.querySelector('.ad-form');
 const rooms = adForm.querySelector('#room_number');
 const guests = adForm.querySelector('#capacity');
@@ -10,6 +13,7 @@ const price = adForm.querySelector('#price');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 const submitButton = adForm.querySelector('.ad-form__submit');
+const resetButton = document.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(
   adForm, {
@@ -99,14 +103,26 @@ function onSetTimeIn () {
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
 
+const onResetButton = function () {
+  resetAvatar();
+  resetFoto();
+  sliderReset();
+  handlerResetMainMarker();
+};
+
+resetButton.addEventListener('click', onResetButton);
+
+
 const resetForm = function () {
   adForm.reset();
   sliderReset();
+  resetAvatar();
+  resetFoto();
+  handlerResetMainMarker();
 };
 
 const formUpdateOnSuccess = function () {
   resetForm();
-  handlerResetMainMarker();
   showSuccesMessage();
 };
 

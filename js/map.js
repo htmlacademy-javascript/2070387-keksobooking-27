@@ -2,7 +2,6 @@ import {turnOnForm} from './form-switcher.js';
 import {turnOnMapFilters} from './filter-switcher.js';
 import {getNewCardElement} from './markup.js';
 
-const resetButton = document.querySelector('.ad-form__reset');
 const adress = document.querySelector('#address');
 
 //  СОЗДАНИЕ КАРТЫ И АКТИВАЦИЯ ФОРМЫ И ФИЛЬТРОВ
@@ -64,20 +63,6 @@ const handlerResetMainMarker = function () {
   }, 11);
 };
 
-resetButton.addEventListener('click', handlerResetMainMarker);
-
-// resetButton.addEventListener('click', () => {
-//   mainPinMarker.setLatLng({
-//     lat: 35.67325,
-//     lng: 139.75908,
-//   });
-
-//   map.setView({
-//     lat: 35.67325,
-//     lng: 139.75908,
-//   }, 11);
-// });
-
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ
 const pinIcon = L.icon({
   iconUrl: '..//img/pin.svg',
@@ -110,4 +95,9 @@ const createAllMarkers = function (arr) {
   });
 };
 
-export {createAllMarkers, handlerResetMainMarker};
+// УДАЛЕНИЕ МАРКЕРОВ
+const removeAllMarkers = function () {
+  markerGroup.clearLayers();
+};
+
+export {createAllMarkers, removeAllMarkers, handlerResetMainMarker};
