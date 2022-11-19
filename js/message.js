@@ -1,6 +1,7 @@
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 const bodyElement = document.querySelector('body');
+const SHOW_TIME = 5000;
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
@@ -45,9 +46,7 @@ function hideMessage () {
   bodyElement.style.overflow = 'auto';
 }
 
-
-const SHOW_TIME = 5000;
-const showAlert = function (message) {
+const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';

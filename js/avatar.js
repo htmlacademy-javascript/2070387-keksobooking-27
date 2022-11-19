@@ -13,7 +13,7 @@ fileChooser.addEventListener('change', () => {
   }
 });
 
-const resetAvatar = function () {
+const resetAvatar = () => {
   preview.src = 'img/muffin-grey.svg';
 };
 

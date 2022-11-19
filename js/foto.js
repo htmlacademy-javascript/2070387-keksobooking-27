@@ -19,7 +19,7 @@ fotoChooser.addEventListener('change', () => {
   }
 });
 
-const resetFoto = function () {
+const resetFoto = () => {
   previewFoto.innerHTML = '';
 };
 

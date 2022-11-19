@@ -2,7 +2,6 @@ import {sliderReset} from './slider.js';
 import {handlerResetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
 import {sendData} from './api.js';
-
 import {resetAvatar} from './avatar.js';
 import {resetFoto} from './foto.js';
 const adForm = document.querySelector('.ad-form');
@@ -103,7 +102,7 @@ function onSetTimeIn () {
 timeIn.addEventListener('change', onSetTimeOut);
 timeOut.addEventListener('change', onSetTimeIn);
 
-const onResetButton = function () {
+const onResetButton = () => {
   resetAvatar();
   resetFoto();
   sliderReset();
@@ -113,7 +112,7 @@ const onResetButton = function () {
 resetButton.addEventListener('click', onResetButton);
 
 
-const resetForm = function () {
+const resetForm = () => {
   adForm.reset();
   sliderReset();
   resetAvatar();
@@ -121,17 +120,17 @@ const resetForm = function () {
   handlerResetMainMarker();
 };
 
-const formUpdateOnSuccess = function () {
+const formUpdateOnSuccess = () => {
   resetForm();
   showSuccesMessage();
 };
 
-const blockSubmitButton = function () {
+const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Публикую...';
 };
 
-const unblockSubmitButton = function () {
+const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
 };

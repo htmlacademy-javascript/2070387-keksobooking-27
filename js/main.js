@@ -10,7 +10,6 @@ import './avatar.js';
 import './foto.js';
 import {setOnFiltersChange} from './filter.js';
 
-
 const OFFER_COUNT = 10;
 
 getData(

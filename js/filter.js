@@ -4,7 +4,7 @@ import {debounce} from './debounce.js';
 const OFFER_COUNT = 10;
 const RERENDER_DELAY = 500;
 
-const Price = {
+const priceLevel = {
   middle: 10000,
   high: 50000,
 };
@@ -25,11 +25,11 @@ const filterPrice = (offer, price) => {
     case 'any':
       return true;
     case 'low':
-      return offer.offer.price < Price.middle;
+      return offer.offer.price < priceLevel.middle;
     case 'middle':
-      return offer.offer.price >= Price.middle && offer.offer.price < Price.high;
+      return offer.offer.price >= priceLevel.middle && offer.offer.price < priceLevel.high;
     case 'high':
-      return offer.offer.price >= Price.high;
+      return offer.offer.price >= priceLevel.high;
   }
 };
 
@@ -49,7 +49,7 @@ const filterFeatures = (offer, features) => {
   return features.every((feature) => offer.offer.features.includes(feature));
 };
 
-const getFilteredOffersByType = function (offers) {
+const getFilteredOffersByType = (offers) => {
   const filteredOffers = [];
   const selectedType = housingType.value;
   const selectedPrice = housingPrice.value;
@@ -81,7 +81,7 @@ const getFilteredOffersByType = function (offers) {
   return filteredOffers;
 };
 
-const setOnFiltersChange = function (cb, arr) {
+const setOnFiltersChange = (cb, arr) => {
   filtersForm.addEventListener('change', debounce(() => {
     removeAllMarkers();
     cb(getFilteredOffersByType(arr));
