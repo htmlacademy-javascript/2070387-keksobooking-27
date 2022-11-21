@@ -100,8 +100,6 @@ const createMarker = (popupCard) => {
   });
 };
 
-
-
 const createAllMarkers = (arr) => {
   arr.forEach((popupCard) => {
     createMarker(popupCard);
