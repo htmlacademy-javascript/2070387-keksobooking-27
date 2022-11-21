@@ -90,9 +90,17 @@ const createMarker = (popupCard) => {
   );
 
   marker
-    .addTo(markerGroup)
-    .bindPopup(getNewCardElement(popupCard));
+    .bindPopup(getNewCardElement(popupCard))
+    .addTo(markerGroup);
+
+  marker.on('click', () => {
+    marker
+      .bindPopup(getNewCardElement(popupCard))
+      .addTo(markerGroup);
+  });
 };
+
+
 
 const createAllMarkers = (arr) => {
   arr.forEach((popupCard) => {
