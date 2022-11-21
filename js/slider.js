@@ -1,6 +1,6 @@
-const sliderPrice = document.querySelector('.ad-form__slider');
-const price = document.querySelector('#price');
-const typeOfHousing = document.querySelector('#type');
+const sliderPriceElement = document.querySelector('.ad-form__slider');
+const priceElement = document.querySelector('#price');
+const typeOfHousingElement = document.querySelector('#type');
 const typeCost = {
   bungalow: '0',
   flat: '1000',
@@ -9,7 +9,7 @@ const typeCost = {
   palace: '10000'
 };
 
-noUiSlider.create(sliderPrice, {
+noUiSlider.create(sliderPriceElement, {
   range: {
     min: 0,
     max: 100000,
@@ -27,19 +27,19 @@ noUiSlider.create(sliderPrice, {
   },
 });
 
-sliderPrice.noUiSlider.on('update', () => {
-  price.value = sliderPrice.noUiSlider.get();
+sliderPriceElement.noUiSlider.on('update', () => {
+  priceElement.value = sliderPriceElement.noUiSlider.get();
 });
 
-typeOfHousing.addEventListener('change', () => {
-  const startPrice = typeCost[typeOfHousing.value];
-  sliderPrice.noUiSlider.updateOptions({
+typeOfHousingElement.addEventListener('change', () => {
+  const startPrice = typeCost[typeOfHousingElement.value];
+  sliderPriceElement.noUiSlider.updateOptions({
     start: startPrice,
   });
 });
 
 const sliderReset = () => {
-  sliderPrice.noUiSlider.set(typeCost[typeOfHousing.value]);
+  sliderPriceElement.noUiSlider.set(typeCost[typeOfHousingElement.value]);
 };
 
 export {sliderReset};

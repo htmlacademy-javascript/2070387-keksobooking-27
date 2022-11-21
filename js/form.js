@@ -3,19 +3,19 @@ import {handlerResetMainMarker} from './map.js';
 import {showSuccesMessage, showErrorMessage} from './message.js';
 import {sendData} from './api.js';
 import {resetAvatar} from './avatar.js';
-import {resetFoto} from './foto.js';
-const adForm = document.querySelector('.ad-form');
-const rooms = adForm.querySelector('#room_number');
-const guests = adForm.querySelector('#capacity');
-const typeOfHousing = adForm.querySelector('#type');
-const price = adForm.querySelector('#price');
-const timeIn = adForm.querySelector('#timein');
-const timeOut = adForm.querySelector('#timeout');
-const submitButton = adForm.querySelector('.ad-form__submit');
-const resetButton = document.querySelector('.ad-form__reset');
+import {resetPhoto} from './photo.js';
+const adFormElement = document.querySelector('.ad-form');
+const roomsElement = adFormElement.querySelector('#room_number');
+const guestsElement = adFormElement.querySelector('#capacity');
+const typeOfHousingElement = adFormElement.querySelector('#type');
+const priceElement = adFormElement.querySelector('#price');
+const timeInElement = adFormElement.querySelector('#timein');
+const timeOutElement = adFormElement.querySelector('#timeout');
+const submitButtonElement = adFormElement.querySelector('.ad-form__submit');
+const resetButtonElement = document.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(
-  adForm, {
+  adFormElement, {
     classTo: 'ad-form__element',
     errorTextParent: 'ad-form__element',
     errorClass: 'ad-form__element--invalid',
@@ -38,26 +38,26 @@ const guestsCapacity = {
 };
 
 function validateGuests () {
-  return roomsCapacity[rooms.value].includes(guests.value);
+  return roomsCapacity[roomsElement.value].includes(guestsElement.value);
 }
 
 function validateRooms () {
-  return guestsCapacity[guests.value].includes(rooms.value);
+  return guestsCapacity[guestsElement.value].includes(roomsElement.value);
 }
 
 function getGuestsErrorMessage () {
-  return `Количество комнат (${rooms.value}) не позволяет разместить такое количество гостей (${guests.value})`;
+  return `Количество комнат (${roomsElement.value}) не позволяет разместить такое количество гостей (${guestsElement.value})`;
 }
 
-pristine.addValidator(guests, validateGuests, getGuestsErrorMessage);
-pristine.addValidator(rooms, validateRooms, getGuestsErrorMessage);
+pristine.addValidator(guestsElement, validateGuests, getGuestsErrorMessage);
+pristine.addValidator(roomsElement, validateRooms, getGuestsErrorMessage);
 
-rooms.addEventListener('change', onRoomsGuestsChange);
-guests.addEventListener('change', onRoomsGuestsChange);
+roomsElement.addEventListener('change', onRoomsGuestsChange);
+guestsElement.addEventListener('change', onRoomsGuestsChange);
 
 function onRoomsGuestsChange () {
-  pristine.validate(rooms);
-  pristine.validate(guests);
+  pristine.validate(roomsElement);
+  pristine.validate(guestsElement);
 }
 
 const typeCosts = {
@@ -69,54 +69,54 @@ const typeCosts = {
 };
 
 function setMinPrice () {
-  price.setAttribute('placeholder', typeCosts[typeOfHousing.value]);
-  price.setAttribute('min', typeCosts[typeOfHousing.value]);
+  priceElement.setAttribute('placeholder', typeCosts[typeOfHousingElement.value]);
+  priceElement.setAttribute('min', typeCosts[typeOfHousingElement.value]);
 }
 
-typeOfHousing.addEventListener('change', setMinPrice);
+typeOfHousingElement.addEventListener('change', setMinPrice);
 
 function validatePrice () {
-  return Number(price.value) >= Number(typeCosts[typeOfHousing.value]);
+  return Number(priceElement.value) >= Number(typeCosts[typeOfHousingElement.value]);
 }
 
 function getPriceErrorMessage () {
-  return `Цена выбранного типа жилья не менее ${typeCosts[typeOfHousing.value]} рублей за ночь`;
+  return `Цена выбранного типа жилья не менее ${typeCosts[typeOfHousingElement.value]} рублей за ночь`;
 }
 
-pristine.addValidator(price, validatePrice, getPriceErrorMessage);
+pristine.addValidator(priceElement, validatePrice, getPriceErrorMessage);
 
-typeOfHousing.addEventListener('change', onTypeOfHousingChange);
+typeOfHousingElement.addEventListener('change', onTypeOfHousingChange);
 
 function onTypeOfHousingChange () {
-  pristine.validate(price);
+  pristine.validate(priceElement);
 }
 
 function onSetTimeOut () {
-  timeOut.value = timeIn.value;
+  timeOutElement.value = timeInElement.value;
 }
 
 function onSetTimeIn () {
-  timeIn.value = timeOut.value;
+  timeInElement.value = timeOutElement.value;
 }
 
-timeIn.addEventListener('change', onSetTimeOut);
-timeOut.addEventListener('change', onSetTimeIn);
+timeInElement.addEventListener('change', onSetTimeOut);
+timeOutElement.addEventListener('change', onSetTimeIn);
 
 const onResetButton = () => {
   resetAvatar();
-  resetFoto();
+  resetPhoto();
   sliderReset();
   handlerResetMainMarker();
 };
 
-resetButton.addEventListener('click', onResetButton);
+resetButtonElement.addEventListener('click', onResetButton);
 
 
 const resetForm = () => {
-  adForm.reset();
+  adFormElement.reset();
   sliderReset();
   resetAvatar();
-  resetFoto();
+  resetPhoto();
   handlerResetMainMarker();
 };
 
@@ -126,16 +126,16 @@ const formUpdateOnSuccess = () => {
 };
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикую...';
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Публикую...';
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
 };
 
-adForm.addEventListener('submit', (evt) => {
+adFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {

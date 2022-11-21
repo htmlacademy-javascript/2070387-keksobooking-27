@@ -7,7 +7,7 @@ import {createAllMarkers} from './map.js';
 import {showAlert} from './message.js';
 import {getData} from './api.js';
 import './avatar.js';
-import './foto.js';
+import './photo.js';
 import {setOnFiltersChange} from './filter.js';
 
 const OFFER_COUNT = 10;

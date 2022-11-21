@@ -9,12 +9,12 @@ const priceLevel = {
   high: 50000,
 };
 
-const filtersForm = document.querySelector('.map__filters');
-const housingType = filtersForm.querySelector('#housing-type');
-const housingPrice = filtersForm.querySelector('#housing-price');
-const housingRooms = filtersForm.querySelector('#housing-rooms');
-const housingGuests = filtersForm.querySelector('#housing-guests');
-const housingFeatures = filtersForm.querySelectorAll('.map__checkbox');
+const filtersFormElement = document.querySelector('.map__filters');
+const housingTypeElement = filtersFormElement.querySelector('#housing-type');
+const housingPriceElement = filtersFormElement.querySelector('#housing-price');
+const housingRoomsElement = filtersFormElement.querySelector('#housing-rooms');
+const housingGuestsElement = filtersFormElement.querySelector('#housing-guests');
+const housingFeaturesElement = filtersFormElement.querySelectorAll('.map__checkbox');
 
 const filterType = (offer, type) =>
   type === 'any' || offer.offer.type === type;
@@ -51,12 +51,12 @@ const filterFeatures = (offer, features) => {
 
 const getFilteredOffersByType = (offers) => {
   const filteredOffers = [];
-  const selectedType = housingType.value;
-  const selectedPrice = housingPrice.value;
-  const selectedRooms = housingRooms.value;
-  const selectedGuests = housingGuests.value;
+  const selectedType = housingTypeElement.value;
+  const selectedPrice = housingPriceElement.value;
+  const selectedRooms = housingRoomsElement.value;
+  const selectedGuests = housingGuestsElement.value;
   const selectedFeatures = [];
-  housingFeatures.forEach((checkbox) => {
+  housingFeaturesElement.forEach((checkbox) => {
     if (checkbox.checked) {
       selectedFeatures.push(checkbox.value);
     }
@@ -82,7 +82,7 @@ const getFilteredOffersByType = (offers) => {
 };
 
 const setOnFiltersChange = (cb, arr) => {
-  filtersForm.addEventListener('change', debounce(() => {
+  filtersFormElement.addEventListener('change', debounce(() => {
     removeAllMarkers();
     cb(getFilteredOffersByType(arr));
   }

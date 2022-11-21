@@ -2,7 +2,11 @@ import {turnOnForm} from './form-switcher.js';
 import {turnOnMapFilters} from './filter-switcher.js';
 import {getNewCardElement} from './markup.js';
 
-const adress = document.querySelector('#address');
+const LAT = 35.67325;
+const LNG = 139.75908;
+const MAP_SCALE = 11;
+
+const adressElement = document.querySelector('#address');
 
 //  СОЗДАНИЕ КАРТЫ И АКТИВАЦИЯ ФОРМЫ И ФИЛЬТРОВ
 const map = L.map('map-canvas');
@@ -11,9 +15,9 @@ map.on('load', () => {
   turnOnMapFilters();
 })
   .setView({
-    lat: 35.67325,
-    lng: 139.75908,
-  }, 11);
+    lat: LAT,
+    lng: LNG,
+  }, MAP_SCALE);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -31,8 +35,8 @@ const mainPinIcon = L.icon({
 
 const mainPinMarker = L.marker(
   {
-    lat: 35.67325,
-    lng: 139.75908,
+    lat: LAT,
+    lng: LNG,
   },
   {
     draggable: true,
@@ -48,20 +52,20 @@ mainPinMarker.on('moveend', (evt) => {
   const arr = latLang.split('');
   const Lat = arr.slice(7, 15).join('');
   const Lan = arr.slice(18, 27).join('');
-  adress.value = `${Lat}, ${Lan}`;
+  adressElement.value = `${Lat}, ${Lan}`;
 });
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
 const handlerResetMainMarker = () => {
   mainPinMarker.setLatLng({
-    lat: 35.67325,
-    lng: 139.75908,
+    lat: LAT,
+    lng: LNG,
   });
 
   map.setView({
-    lat: 35.67325,
-    lng: 139.75908,
-  }, 11);
+    lat: LAT,
+    lng: LNG,
+  }, MAP_SCALE);
 };
 
 // СОЗДАНИЕ МАРКЕРОВ С ОБЪЯВЛЕНИЯМИ

@@ -1,16 +1,16 @@
-const mapFilters = document.querySelector('.map__filters');
-const selects = mapFilters.querySelectorAll('select');
+const mapFiltersElement = document.querySelector('.map__filters');
+const selectElements = mapFiltersElement.querySelectorAll('select');
 
 const turnOffMapFilters = () => {
-  mapFilters.classList.add('map__filters--disabled');
-  selects.forEach((select) => {
+  mapFiltersElement.classList.add('map__filters--disabled');
+  selectElements.forEach((select) => {
     select.disabled = true;
   });
 };
 
 const turnOnMapFilters = () => {
-  mapFilters.classList.remove('map__filters--disabled');
-  selects.forEach((select) => {
+  mapFiltersElement.classList.remove('map__filters--disabled');
+  selectElements.forEach((select) => {
     select.disabled = false;
   });
 };
