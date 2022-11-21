@@ -47,7 +47,7 @@ mainPinMarker.on('moveend', (evt) => {
   const arr = latLang.split('');
   const Lat = arr.slice(7, 15).join('');
   const Lan = arr.slice(18, 27).join('');
-  adress.value = `Lat: ${Lat}, Lan: ${Lan}`;
+  adress.value = `${Lat}, ${Lan}`;
 });
 
 // СБРОС СОСТОЯНИЯ МАРКЕРА И КАРТЫ
