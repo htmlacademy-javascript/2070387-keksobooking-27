@@ -5,7 +5,11 @@ import {getNewCardElement} from './markup.js';
 const adress = document.querySelector('#address');
 
 //  СОЗДАНИЕ КАРТЫ И АКТИВАЦИЯ ФОРМЫ И ФИЛЬТРОВ
-const map = L.map('map-canvas')
+const map = L.map('map-canvas');
+map.on('load', () => {
+  turnOnForm();
+  turnOnMapFilters();
+})
   .setView({
     lat: 35.67325,
     lng: 139.75908,
@@ -17,9 +21,6 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
   },
 ).addTo(map);
-
-map.on('load', turnOnForm());
-map.on('load', turnOnMapFilters());
 
 // СОЗДАНИЕ ОСНОВНОГО МАРКЕРА
 const mainPinIcon = L.icon({
